@@ -69,6 +69,10 @@
     }
 
     button:hover {
+      .active {
+  background-color: #111;
+  color: #fff;
+      }
       background-color: #111;
       color: #fff;
     }
@@ -97,11 +101,11 @@
     />
 
     <div class="buttons">
-      <button onclick="saveResult('Fiz hoje')">
+      <button id="doneButton" onclick="saveResult('Fiz hoje')">
         ✅ Fiz hoje
       </button>
 
-      <button onclick="saveResult('Não fiz hoje')">
+      <button id="failButton" onclick="saveResult('Não fiz hoje')">
         ❌ Não fiz hoje
       </button>
     </div>
