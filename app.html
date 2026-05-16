@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sísifo | App</title>
 
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #efefef;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #111;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      background-color: #fff;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #444;
+      margin-bottom: 24px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #111;
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .result {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #ccc;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Sísifo</h1>
+
+    <p>
+      Um hábito. Um dia. Apenas honestidade.
+    </p>
+
+    <input
+      type="text"
+      id="habit"
+      placeholder="Qual hábito você está tentando sustentar?"
+    />
+
+    <div class="buttons">
+      <button onclick="saveResult('Fiz hoje')">
+        ✅ Fiz hoje
+      </button>
+
+      <button onclick="saveResult('Não fiz hoje')">
+        ❌ Não fiz hoje
+      </button>
+    </div>
+
+    <textarea
+      id="reflection"
+      placeholder="Uma linha sobre isso..."
+    ></textarea>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function saveResult(status) {
+      const habit = document.getElementById("habit").value;
+      const reflection = document.getElementById("reflection").value;
+      const result = document.getElementById("result");
+
+      result.innerHTML = `
+        <h3>${habit}</h3>
+        <p><strong>${status}</strong></p>
+        <p>${reflection}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
