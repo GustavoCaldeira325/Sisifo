@@ -93,5 +93,42 @@
   COMEÇAR
 </a>
   </div>
+  <script>
+  function saveResult(status) {
+    const habit = document.getElementById("habit").value;
+    const reflection = document.getElementById("reflection").value;
+
+    const data = {
+      habit: habit,
+      status: status,
+      reflection: reflection
+    };
+
+    localStorage.setItem("sisifoData", JSON.stringify(data));
+
+    renderData();
+  }
+
+  function renderData() {
+    const result = document.getElementById("result");
+
+    const savedData = localStorage.getItem("sisifoData");
+
+    if (!savedData) {
+      result.innerHTML = "";
+      return;
+    }
+
+    const data = JSON.parse(savedData);
+
+    result.innerHTML = `
+      <h3>${data.habit}</h3>
+      <p><strong>${data.status}</strong></p>
+      <p>${data.reflection}</p>
+    `;
+  }
+
+  renderData();
+</script>
 </body>
 </html>
