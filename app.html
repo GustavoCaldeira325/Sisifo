@@ -110,22 +110,58 @@
       id="reflection"
       placeholder="Uma linha sobre isso..."
     ></textarea>
-
+    <h2>Histórico</h2>
     <div class="result" id="result"></div>
   </div>
+<script>
+  function saveResult(status) {
+    const habit = document.getElementById("habit").value;
+    const reflection = document.getElementById("reflection").value;
 
-  <script>
-    function saveResult(status) {
-      const habit = document.getElementById("habit").value;
-      const reflection = document.getElementById("reflection").value;
-      const result = document.getElementById("result");
+    const today = new Date().toLocaleDateString("pt-BR");
 
-      result.innerHTML = `
-        <h3>${habit}</h3>
-        <p><strong>${status}</strong></p>
-        <p>${reflection}</p>
-      `;
+    const newEntry = {
+      date: today,
+      habit: habit,
+      status: status,
+      reflection: reflection
+    };
+
+    const existingData =
+      JSON.parse(localStorage.getItem("sisifoHistory")) || [];
+
+    existingData.unshift(newEntry);
+
+    localStorage.setItem(
+      "sisifoHistory",
+      JSON.stringify(existingData)
+    );
+
+    renderData();
+  }
+
+  function renderData() {
+    const result = document.getElementById("result");
+
+    const history =
+      JSON.parse(localStorage.getItem("sisifoHistory")) || [];
+
+    if (history.length === 0) {
+      result.innerHTML = "<p>Nenhum registro ainda.</p>";
+      return;
     }
+
+    result.innerHTML = history.map(entry => `
+      <div style="margin-bottom: 32px;">
+        <p><strong>${entry.date}</strong></p>
+        <p>${entry.habit}</p>
+        <p><strong>${entry.status}</strong></p>
+        <p>${entry.reflection}</p>
+      </div>
+    `).join("");
+  }
+
+  renderData();
   </script>
-</body>
+ </body>
 </html>
