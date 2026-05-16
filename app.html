@@ -134,6 +134,15 @@
     const existingData =
       JSON.parse(localStorage.getItem("sisifoHistory")) || [];
 
+    const alreadyExists = existingData.find(
+      entry => entry.date === today
+    );
+
+    if (alreadyExists) {
+      alert("Hoje já foi registrado.");
+      return;
+    }
+
     existingData.unshift(newEntry);
 
     localStorage.setItem(
@@ -141,7 +150,13 @@
       JSON.stringify(existingData)
     );
 
+    localStorage.setItem(
+      "sisifoTodayStatus",
+      status
+    );
+
     renderData();
+    updateButtons();
   }
 
   function renderData() {
@@ -165,7 +180,30 @@
     `).join("");
   }
 
+  function updateButtons() {
+    const status =
+      localStorage.getItem("sisifoTodayStatus");
+
+    const doneButton =
+      document.getElementById("doneButton");
+
+    const failButton =
+      document.getElementById("failButton");
+
+    doneButton.classList.remove("active");
+    failButton.classList.remove("active");
+
+    if (status === "Fiz hoje") {
+      doneButton.classList.add("active");
+    }
+
+    if (status === "Não fiz hoje") {
+      failButton.classList.add("active");
+    }
+  }
+
   renderData();
-  </script>
+  updateButtons();
+</script>
  </body>
 </html>
