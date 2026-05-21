@@ -83,12 +83,19 @@
       border-top: 1px solid #ccc;
       text-align: left;
     }
+    #todayStatus {
+  margin-bottom: 24px;
+  color: #555;
+  font-style: italic;
+  line-height: 1.6;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
     <h1>Sísifo</h1>
+    <div id="todayStatus"></div>
 
     <p>
       Um hábito. Um dia. Apenas honestidade.
@@ -154,9 +161,42 @@
       "sisifoTodayStatus",
       status
     );
+    
+function renderTodayStatus() {
+  const todayStatus =
+    document.getElementById("todayStatus");
 
+  const today =
+    new Date().toLocaleDateString("pt-BR");
+
+  const status =
+    localStorage.getItem("sisifoTodayStatus");
+
+  if (!status) {
+    todayStatus.innerHTML = `
+      <p>Hoje é ${today}.</p>
+      <p>A pedra ainda espera.</p>
+    `;
+    return;
+  }
+
+  if (status === "Fiz hoje") {
+    todayStatus.innerHTML = `
+      <p>Hoje é ${today}.</p>
+      <p>Hoje já aconteceu.</p>
+    `;
+  }
+
+  if (status === "Não fiz hoje") {
+    todayStatus.innerHTML = `
+      <p>Hoje é ${today}.</p>
+      <p>Hoje a pedra venceu.</p>
+    `;
+  }
+}
     renderData();
     updateButtons();
+    renderTodayStatus();
   }
 
   function renderData() {
